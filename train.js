@@ -1,13 +1,28 @@
-function mobileMenu() {
-  const mobileMenu = document.querySelector(".mobile-menu");
-  const menuOpen = document.querySelector(".mobile-menu-open");
-  const menuClose = document.querySelector(".mobile-menu-close");
+const Button = ({ changeMessage, label }) => (
+  <button type="button" onClick={changeMessage}>
+    {label}
+  </button>
+);
 
-  menuOpen.addEventListener("click", changeMenu);
-  menuClose.addEventListener("click", changeMenu);
+class App extends Component {
+  state = {
+    message: new Date().toLocaleTimeString(),
+  };
 
-  function changeMenu() {const isMenuOpen =  menuOpen.getAttribute('aria-expanded') === "true" || false;
-menuOpen.setAttribute('aria-expanded', !isMenuOpen);
-mobileMenu.classList.toggle("is-open");}
+  // Метод, який будемо передавати в Button для виклику під час кліку
+  updateMessage = evt => {
+    console.log(evt); // Доступний об'єкт події
+    this.setState({
+      message: new Date().toLocaleTimeString(),
+    });
+  };
+
+  render() {
+    return (
+      <>
+        <span>{this.state.message}</span>
+        <Button label="Change message" changeMessage={this.updateMessage} />
+      </>
+    );
+  }
 }
- mobileMenu()
